@@ -1,0 +1,17 @@
+{
+  "repo": "lattice-mob-forms-vault",
+  "thresholds": {
+    "signal": 3,
+    "slack": 2,
+    "confidence": 2,
+    "drag": 4,
+    "ship": 156,
+    "watch": 108
+  },
+  "terms": [
+    "form pressure",
+    "sync drift",
+    "local state",
+    "conflict cost"
+  ]
+}
