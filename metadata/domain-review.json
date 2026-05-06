@@ -1,0 +1,73 @@
+{
+  "repo": "lattice-mob-forms-vault",
+  "language": "Go",
+  "category": "Mobile workflows",
+  "goal": "Create a Go reference implementation for forms workflows, centered on simulation kernel, seeded input scenarios, and deterministic summary checks.",
+  "review_model": {
+    "terms": [
+      "form pressure",
+      "sync drift",
+      "local state",
+      "conflict cost"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "form pressure",
+      "signal": 54,
+      "slack": 24,
+      "drag": 8,
+      "confidence": 55,
+      "score": 163,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "sync drift",
+      "signal": 49,
+      "slack": 20,
+      "drag": 29,
+      "confidence": 85,
+      "score": 116,
+      "lane": "watch"
+    },
+    {
+      "name": "edge",
+      "focus": "local state",
+      "signal": 62,
+      "slack": 20,
+      "drag": 18,
+      "confidence": 55,
+      "score": 145,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "conflict cost",
+      "signal": 61,
+      "slack": 46,
+      "drag": 19,
+      "confidence": 85,
+      "score": 196,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "form pressure",
+      "signal": 74,
+      "slack": 23,
+      "drag": 9,
+      "confidence": 67,
+      "score": 211,
+      "lane": "ship"
+    }
+  ]
+}

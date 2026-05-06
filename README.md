@@ -1,69 +1,40 @@
 # lattice-mob-forms-vault
 
-`lattice-mob-forms-vault` packages a practical mobile workflows exercise in Go. The emphasis is on deterministic behavior, a small public API, and examples that explain the tradeoffs.
+`lattice-mob-forms-vault` is a compact Go repository for mobile workflows, centered on this goal: Create a Go reference implementation for forms workflows, centered on simulation kernel, seeded input scenarios, and deterministic summary checks.
 
-## How I Read Lattice Mob Forms Vault
+## Project Rationale
 
-The useful thing to inspect here is how the same score rule is represented in code, metadata, and examples. If those three pieces disagree, the audit script should make the drift visible.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## Problem Shape
+## Lattice Mob Forms Vault Review Notes
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+Start with `form pressure` and `sync drift`. Those cases create the widest score spread in this repo, so they are the best quick check when the model changes.
 
-## Main Behaviors
+## Feature Set
 
-- Models local state with deterministic scoring and explicit review decisions.
-- Uses fixture data to keep sync pressure changes visible in code review.
-- Includes extended examples for form constraints, including `surge` and `degraded`.
-- Documents offline paths tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
+- `fixtures/domain_review.csv` adds cases for form pressure and sync drift.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/lattice-mob-forms-walkthrough.md` walks through the case spread.
+- The Go code includes a review path for `form pressure` and `sync drift`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Internal Model
+## Architecture
 
-The interesting part is the boundary between accepted and reviewed scenarios. Extended examples sit near that boundary so future edits can show whether the model became more permissive or more cautious. The Go layout uses small packages and table-oriented tests so the behavior stays easy to follow.
+The fixture data drives the tests. The code stays thin, while `metadata/domain-review.json` and `config/review-profile.json` explain what each case is meant to protect.
 
-## Repository Map
+The Go addition stays small enough to inspect in one sitting.
 
-- `policy`: Go package with the core model
-- `cmd`: small command entry point
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-- `go.mod`: Go module metadata
-
-## Run It Locally
-
-Install Go and run the commands from the repository root. The project does not need credentials or a hosted service.
-
-## How To Run It
+## Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Test Command
 
-## Validation
+That command is also the regression path. It verifies the domain cases and catches mismatches between the CSV, metadata, and code.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Next Improvements
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Scenario Walkthrough
-
-`examples/extended_cases.csv` adds six named cases. I kept the names plain so failures are easy to read in a terminal: baseline, pressure, surge, degraded, recovery, and boundary.
-
-## Known Edges
-
-The repository favors determinism over breadth. It does not pull live data, keep secrets, or depend on network access for verification.
-
-## Follow-Up Work
-
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add one more mobile workflows fixture that focuses on a malformed or borderline input.
+The fixture set is small enough to audit by hand. The next useful expansion is malformed input coverage, not extra surface area.
