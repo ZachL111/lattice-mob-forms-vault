@@ -1,0 +1,32 @@
+{
+  "index": 468,
+  "phase": 2,
+  "batch": 52,
+  "name": "lattice-mob-forms-vault",
+  "planned_name": "lattice-mob-forms-vault",
+  "language": "Go",
+  "category": "Mobile workflows",
+  "goal": "Create a Go reference implementation for forms workflows, centered on simulation kernel, seeded input scenarios, and deterministic summary checks.",
+  "repository_url": "https://github.com/ZachL111/lattice-mob-forms-vault",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 169,
+    "risk_penalty": 6,
+    "latency_penalty": 2,
+    "weight_bonus": 5,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}
